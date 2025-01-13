@@ -6,9 +6,9 @@ st.title("Ready to explore data with Cube!")
 
 st.write("Please log in to continue.")
 
-# Ask the user for their username and password
-username = st.text_input("Username")
-password = st.text_input("Password", type="password")
+# Ask the user for their username and password with unique keys
+username = st.text_input("Username", key="username_input")  # Add a unique key for username input
+password = st.text_input("Password", type="password", key="password_input")  # Add a unique key for password input
 
 # Add custom CSS for the rotating cube animation
 st.markdown("""
@@ -79,8 +79,8 @@ st.markdown("""
 with st.container():
     # Login form goes here
     with st.empty():
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
+        username = st.text_input("Username", key="username_input")
+        password = st.text_input("Password", type="password", key="password_input")
 
     if st.button("Log in", type="primary"):
         if username == "your_valid_username" and password == "your_valid_password":
