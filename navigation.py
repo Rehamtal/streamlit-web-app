@@ -1,43 +1,83 @@
 import streamlit as st
-from time import sleep
-from streamlit.runtime.scriptrunner import get_script_run_ctx
-from streamlit.source_util import get_pages
 
+def display_login_form():
+    # Add custom CSS for layout and design
+    st.markdown("""
+        <style>
+            .login-form {
+                width: 40%;
+                padding: 40px;
+                background-color: #ffffff;
+                box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+                border-radius: 10px;
+                border: 1px solid #ddd;
+            }
 
-def get_current_page_name():
-    ctx = get_script_run_ctx()
-    if ctx is None:
-        raise RuntimeError("Couldn't get script context")
+            .login-form h2 {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #223D3F;
+            }
 
-    pages = get_pages("")
+            .login-form label {
+                font-size: 16px;
+                margin-bottom: 10px;
+                color: #333;
+            }
 
-    return pages[ctx.page_script_hash]["page_name"]
+            .login-form input {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 20px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                box-sizing: border-box;
+            }
 
+            .login-form input[type="checkbox"] {
+                width: auto;
+                margin-right: 8px;
+            }
 
-def make_sidebar():
-    with st.sidebar:
-        st.title("💎 Diamond Corp")
-        st.write("")
-        st.write("")
+            .login-form button {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                background-color: #223D3F;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
 
-        if st.session_state.get("logged_in", False):
-            st.page_link("pages/page1.py", label="Secret Company Stuff", icon="🔒")
-            st.page_link("pages/page2.py", label="More Secret Stuff", icon="🕵️")
+            .login-form button:hover {
+                background-color: #1A2A2B;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
-            st.write("")
-            st.write("")
+    # Add Title
+    st.title("Login to Cube")
 
-            if st.button("Log out"):
-                logout()
+    # Display login form
+    st.markdown("""
+        <div class="login-form">
+            <h2>Ready to explore data with Cube!</h2>
+            <form action="#">
+                <label for="name">Enter your Name:</label>
+                <input type="text" id="name" name="name" required>
 
-        elif get_current_page_name() != "streamlit_app":
-            # If anyone tries to access a secret page without being logged in,
-            # redirect them to the login page
-            st.switch_page("streamlit_app.py")
+                <label for="email">Enter your Email Address:</label>
+                <input type="email" id="email" name="email" required>
 
+                <label for="terms">
+                    <input type="checkbox" id="terms" name="terms">
+                    I agree to the Terms and Conditions
+                </label>
 
-def logout():
-    st.session_state.logged_in = False
-    st.info("Logged out successfully!")
-    sleep(0.5)
-    st.switch_page("streamlit_app.py")
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    """, unsafe_allow_html=True)
