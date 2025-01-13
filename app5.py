@@ -187,4 +187,3 @@ html_code = """
 
 # Embed the HTML/JavaScript in Streamlit
 components.html(html_code, height=600, width=800)
-
